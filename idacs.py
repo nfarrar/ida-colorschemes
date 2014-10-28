@@ -3,7 +3,7 @@
 # @Author: nfarrar
 # @Date:   2014-10-27 18:23:41
 # @Last Modified by:   Nathan Farrar
-# @Last Modified time: 2014-10-28 11:48:00
+# @Last Modified time: 2014-10-28 12:05:49
 
 import cliff
 import logging
@@ -97,18 +97,25 @@ class ColorScheme:
                  colorscheme_directory=COLORSCHEMES_DIRECTORY, colorscheme_file=COLORSCHEME_FILE):
         """ Initialize the colorscheme. """
 
+        # Initialize our optional arguments.
         self.colorscheme_name = colorscheme_name
-        logging.debug('Initializing colorscheme \'' + self.colorscheme_name + '\'.')
-
         self.template_directory = template_directory
-        logging.debug('Set template_directory to \'' + self.template_directory + '\'.')
-
         self.template_file = template_file
-        logging.debug('Set template_file to \'' + self.template_file + '\'.')
-
         self.colorscheme_path = os.path.join(colorscheme_directory, colorscheme_file)
+
+        # ... and write out some debugging information.
+        logging.debug('Initializing colorscheme \'' + self.colorscheme_name + '\'.')
+        logging.debug('Set template_directory to \'' + self.template_directory + '\'.')
+        logging.debug('Set template_file to \'' + self.template_file + '\'.')
         logging.debug('Set colorscheme_path to \'' + self.colorscheme_path + '\'.')
 
+        self.load_template()
+        self.load_colorscheme()
+        self.build_config()
+
+    def load_template(self):
+        """ Load the template file """
+        # Initialize the Jinaj2 template environment.
         try:
             self.template_env = Environment(loader=FileSystemLoader(self.template_directory))
             logging.debug('Initialized template environment using \'' + self.template_directory + '\'.' )
@@ -116,6 +123,7 @@ class ColorScheme:
             logging.error('Failed to initialize template environment using \'' + self.template_directory + '\'.')
             sys.exit(1)
 
+        # Load our template.
         try:
             self.template = self.template_env.get_template(self.template_file)
             logging.debug('Loaded template from \'' + self.template_file + '\'.')
@@ -123,7 +131,9 @@ class ColorScheme:
             logging.error('Failed to load template from \'' + self.template_file + '\'.')
             sys.exit(1)
 
-        # Open the colorscheme configuration file.
+    def load_colorscheme(self):
+        """ Load the colorscheme configuration file """
+        # Open the colorscheme configuration file for reading.
         try:
             self.colorscheme_file = open(self.colorscheme_path, 'r')
             logging.debug('Opened colorscheme configuration file from \'' + self.colorscheme_path + '\'.')
@@ -132,9 +142,9 @@ class ColorScheme:
             cfg_file.close()
             sys.exit(1)
 
-        # Read the colorscheme configuration from the configuration file.
+        # Read the contents of the colorscheme configuration file as YAML.
         try:
-            self.colorscheme_config = yaml.load(self.colorscheme_file)
+            self.colorscheme_cfg = yaml.load(self.colorscheme_file)
             self.colorscheme_file.close()
             logging.debug('Loaded colorscheme configuration from \'' + self.colorscheme_path + ' as yaml.')
         except Exception, e:
@@ -142,8 +152,16 @@ class ColorScheme:
             cfg_file.close()
             sys.exit(1)
 
-        # pprint(self.colorscheme_config)
-        print self.template.render(self.colorscheme_config)
+    def build_config(self):
+        """ Generate the CLR content from the colorscheme and template """
+
+        # Merge the colorscheme configuration and jinja template.
+        try:
+            self.clr = self.template.render(self.colorscheme_cfg)
+            logging.debug('Successfully merged colorscheme into template.')
+        except Exception, e:
+            logging.error('Failed to merge colorscheme into template.', exc_info=True)
+            sys.exit(1)
 
 
 if __name__ == '__main__':
