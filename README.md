@@ -6,7 +6,7 @@ What in the f*ck?!*$ Yup, it's a colorscheme generator for IDA Pro 6.4+, written
 
 About
 -----
-In IDA Pro 6.4, Hex-Rays introduced .clr colorschemes. The file format and GUI interface is really picky, and after messing around for 15 minutes I could already tell that I was going to spend way too much time tweaking it ... so I decided to spend way more time building a python script to generate dynamic color palettes.
+In IDA Pro 6.4, Hex-Rays introduced .clr colorschemes. The file format and GUI interface is really picky, and after messing around for 15 minutes I could already tell that I was going to spend way too much time tweaking it ... so I decided to spend way more time building a python script to generate colorscheme files from palettes.
 
 **But whyyyyyyyy?**
 The .clr format is extremely picky:
