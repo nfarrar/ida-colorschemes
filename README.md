@@ -52,7 +52,7 @@ Example setup on OSX (using homebrew & virtualenv/virtualenvwrapper):
 
 Usage
 -----
-TODO: Add docs.
+CLI args not done yet.
 
     ./idacs.py
 
