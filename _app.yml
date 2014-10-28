@@ -1,0 +1,14 @@
+# Author:   Nathan Farrar
+# Email:    nathan.farrar@gmail.com
+# Website:  http://crunk.io/
+
+# [APPLICATION]
+version: 1
+runtime: python27
+
+# [DEFAULTS]
+defaults:
+    templates_directory: templates/
+    colorschemes_directory: colorschemes/
+    template_file: ida66.clr
+    colorscheme_file: default.yml

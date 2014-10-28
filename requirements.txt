@@ -1,0 +1,12 @@
+Jinja2==2.7.3
+MarkupSafe==0.23
+PyYAML==3.11
+argparse==1.2.1
+cliff==1.8.0
+cmd2==0.6.7
+pbr==0.10.0
+prettytable==0.7.2
+pyparsing==2.0.3
+six==1.8.0
+stevedore==1.1.0
+wsgiref==0.1.2

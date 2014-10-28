@@ -1,0 +1,105 @@
+[DISASM]
+{{ DISASM.instruction                   }}	 //Instruction
+{{ DISASM.directive                     }}	 //Directive
+{{ DISASM.macro_name                    }}	 //Macro name
+{{ DISASM.register_name                 }}	 //Register name
+{{ DISASM.other_keywords                }}	 //Other keywords
+{{ DISASM.dummy_data_name               }}	 //Dummy data name
+{{ DISASM.dummy_code_name               }}	 //Dummy code name
+{{ DISASM.dummy_unexplored_name         }}	 //Dummy unexplored name
+{{ DISASM.hidden_name                   }}	 //Hidden name
+{{ DISASM.library_function_name         }}	 //Library function name
+{{ DISASM.local_variable_name           }}	 //Local variable name
+{{ DISASM.regular_data_name             }}	 //Regular data name
+{{ DISASM.regular_code_name             }}	 //Regular code name
+{{ DISASM.regular_unexplored_name       }}	 //Regular unexplored name
+{{ DISASM.demangled_name                }}	 //Demangled name
+{{ DISASM.segment_name                  }}	 //Segment name
+{{ DISASM.imported_name                 }}	 //Imported name
+{{ DISASM.suspicious_constant           }}	 //Suspicious constant
+{{ DISASM.char_in_instruction           }}	 //Char in instruction
+{{ DISASM.string_in_instruction         }}	 //String in instruction
+{{ DISASM.number_in_instruction         }}	 //Number in instruction
+{{ DISASM.char_in_data                  }}	 //Char in data
+{{ DISASM.string_in_data                }}	 //String in data
+{{ DISASM.number_in_data                }}	 //Number in data
+{{ DISASM.code_reference                }}	 //Code reference
+{{ DISASM.data_reference                }}	 //Data reference
+{{ DISASM.code_reference_to_tail        }}	 //Code reference to tail
+{{ DISASM.data_reference_to_tail        }}	 //Data reference to tail
+{{ DISASM.automatic_comment             }}	 //Automatic comment
+{{ DISASM.regular_comment               }}	 //Regular comment
+{{ DISASM.repeatable_comment            }}	 //Repeatable comment
+{{ DISASM.extra_line                    }}	 //Extra line
+{{ DISASM.collapsed_line                }}	 //Collapsed line
+{{ DISASM.line_prefix_library_function  }}	 //Line prefix: library function
+{{ DISASM.line_prefix_regular_function  }}	 //Line prefix: regular function
+{{ DISASM.line_prefix_instruction       }}	 //Line prefix: instruction
+{{ DISASM.line_prefix_data              }}	 //Line prefix: data
+{{ DISASM.line_prefix_unexplored        }}	 //Line prefix: unexplored
+{{ DISASM.line_prefix_externs           }}	 //Line prefix: externs
+{{ DISASM.line_prefix_current_item      }}	 //Line prefix: current item
+{{ DISASM.line_prefix_current_line      }}	 //Line prefix: current line
+{{ DISASM.punctuation                   }}	 //Punctuation
+{{ DISASM.opcode_bytes                  }}	 //Opcode bytes
+{{ DISASM.manual_operand                }}	 //Manual operand
+{{ DISASM.error                         }}	 //Error
+{{ DISASM.default_color                 }}	 //Default color
+{{ DISASM.selected                      }}	 //Selected
+{{ DISASM.library_function              }}	 //Library function
+{{ DISASM.regular_function              }}	 //Regular function
+{{ DISASM.single_instruction            }}	 //Single instruction
+{{ DISASM.data_bytes                    }}	 //Data bytes
+{{ DISASM.unexplored_byte               }}	 //Unexplored byte
+[NAVBAR]
+{{ NAVBAR.library_function              }}	 //Library function
+{{ NAVBAR.regular_function              }}	 //Regular function
+{{ NAVBAR.instruction                   }}	 //Instruction
+{{ NAVBAR.data_item                     }}	 //Data item
+{{ NAVBAR.unexplored                    }}	 //Unexplored
+{{ NAVBAR.external_symbol               }}	 //External symbol
+{{ NAVBAR.errors                        }}	 //Errors
+{{ NAVBAR.gaps                          }}	 //Gaps
+{{ NAVBAR.cursor                        }}	 //Cursor
+{{ NAVBAR.address                       }}	 //Address
+[DEBUG]
+{{ DEBUG.current_ip                     }}	 //Current IP
+{{ DEBUG.current_ip_enabled             }}	 //Current IP (Enabled)
+{{ DEBUG.current_ip_disabled            }}	 //Current IP (Disabled)
+{{ DEBUG.current_ip_unavailible         }}	 //Current IP (Unavailible)
+{{ DEBUG.address                        }}	 //Address
+{{ DEBUG.address_enabled                }}	 //Address (Enabled)
+{{ DEBUG.address_disabled               }}	 //Address (Disabled)
+{{ DEBUG.address_unavailible            }}	 //Address (Unavailible)
+{{ DEBUG.registers                      }}	 //Registers
+{{ DEBUG.registers_changed              }}	 //Registers (Changed)
+{{ DEBUG.registers_edited               }}	 //Registers (Edited)
+[ARROW]
+{{ ARROW.jump_in_current_function       }}	 //Jump in current function
+{{ ARROW.jump_external_to_function      }}	 //Jump external to function
+{{ ARROW.jump_under_the_cursor          }}	 //Jump under the cursor
+{{ ARROW.jump_target                    }}	 //Jump target
+{{ ARROW.register_target                }}	 //Register target
+[GRAPH]
+{{ GRAPH.top_color                      }}	 //Top color
+{{ GRAPH.bottom_color                   }}	 //Bottom color
+{{ GRAPH.normal_title                   }}	 //Normal title
+{{ GRAPH.selected_title                 }}	 //Selected title
+{{ GRAPH.current_title                  }}	 //Current title
+{{ GRAPH.group_frame                    }}	 //Group frame
+{{ GRAPH.node_shadow                    }}	 //Node shadow
+{{ GRAPH.highlight_color_1              }}	 //Highlight color 1
+{{ GRAPH.highlight_color_2              }}	 //Highlight color 2
+{{ GRAPH.foreign_node                   }}	 //Foreign node
+{{ GRAPH.normal_edge                    }}	 //Normal edge
+{{ GRAPH.yes_edge                       }}	 //Yes edge
+{{ GRAPH.no_edge                        }}	 //No edge
+{{ GRAPH.highlighted_edge               }}	 //Highlighted edge
+{{ GRAPH.current_edge                   }}	 //Current edge
+[MISC]
+{{ MISC.message_text                    }}	 //Message text
+{{ MISC.message_background              }}	 //Message background
+{{ MISC.patched_bytes                   }}	 //Patched bytes
+{{ MISC.unsaved_changes                 }}	 //Unsaved changes
+{{ MISC.highlight_color                 }}	 //Highlight color
+{{ MISC.hint_color                      }}	 //Hint color
