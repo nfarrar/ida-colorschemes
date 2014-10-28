@@ -3,7 +3,7 @@
 # @Author: nfarrar
 # @Date:   2014-10-27 18:23:41
 # @Last Modified by:   Nathan Farrar
-# @Last Modified time: 2014-10-28 12:38:32
+# @Last Modified time: 2014-10-28 13:26:30
 
 import cliff
 import logging
@@ -91,6 +91,15 @@ def init_config(cfg_path='_app.yml'):
         logging.error('The configuration file ' + cfg_path + ' did not contain a default value for colorscheme_file.', exc_info=True)
         sys.exit(1)
 
+def normalize_color(str):
+    """ A jinja filter for normalizing our color output.
+    If the first character of the string is a # symbol, strip it. """
+
+    if str[0] == '#':
+        str = str[1:]
+    return str
+
+
 class ColorScheme:
     def __init__(self, colorscheme_name='default',
         template_directory=TEMPLATES_DIRECTORY, template_file=TEMPLATE_FILE,
@@ -146,6 +155,10 @@ class ColorScheme:
             logging.error('Failed to load template from \'' + self.template_file + '\'.')
             sys.exit(1)
 
+        # Inject our normalize_color function as a filter into the template environment.
+        #self.template_env.filters['nc'] = normalize_color
+        self.template_env.globals['nc'] = normalize_color
+
     def load_colorscheme(self, colorscheme_path = None):
         """ Load our colorscheme configuration from a YAML file. We can provide the path
         to the file as an argument to this function if we want to override the existing
@@ -197,7 +210,12 @@ class ColorScheme:
         # Create a handle to a new file for writing. If it already exists, throw an error.
         try:
             if os.path.exists(clr_path):
-                raise IOError('File \'' + clr_path + '\' already exists.')
+                # raise IOError('File \'' + clr_path + '\' already exists.')
+
+                # For testing purposes, remove these eventually.
+                logging.debug('File \'' + clr_path + '\' already exists, overwriting.')
+                clr_file = open(clr_path, 'w+')
+                logging.debug('Opened file \'' + clr_path + '\' for writing.')
             else:
                 clr_file = open(clr_path, 'w+')
                 logging.debug('Opened file \'' + clr_path + '\' for writing.')
@@ -221,7 +239,8 @@ if __name__ == '__main__':
     # Create a new ColorScheme object using the defaults.
     cs = ColorScheme()
 
-    # Load the files & generate the config.
+    # Load the files & generate the config. We could overwrite the paths
+    # here, if we wanted.
     cs.load_template()
     cs.load_colorscheme()
     cs.build_clr()
