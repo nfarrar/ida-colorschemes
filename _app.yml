@@ -10,5 +10,5 @@ runtime: python27
 defaults:
     templates_directory: templates/
     colorschemes_directory: colorschemes/
-    template_file: ida66.clr
+    template_file: ida66.j2
     colorscheme_file: default.yml

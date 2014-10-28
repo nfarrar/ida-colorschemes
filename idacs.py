@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 # @Author: nfarrar
 # @Date:   2014-10-27 18:23:41
-# @Last Modified by:   nfarrar
-# @Last Modified time: 2014-10-28 11:05:57
+# @Last Modified by:   Nathan Farrar
+# @Last Modified time: 2014-10-28 11:48:00
 
 import cliff
 import logging
@@ -18,7 +18,7 @@ from pprint import pprint
 # GLOBALS
 TEMPLATES_DIRECTORY = 'templates/'
 COLORSCHEMES_DIRECTORY = 'colorschemes/'
-TEMPLATE_FILE = 'ida66.clr'
+TEMPLATE_FILE = 'ida66.j2'
 COLORSCHEME_FILE = 'default.yml'
 
 
