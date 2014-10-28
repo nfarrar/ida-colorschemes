@@ -1,7 +1,7 @@
 IDA Colorschemes
 ================
-What in the f*ck?!*$ Yup, it's a dynamic color palette/scheme/configuration generator for IDA Pro 6.4+, written in Python.
-
+What in the f*ck?!*$ Yup, it's a dynamic color palette/scheme/configuration generator for IDA Pro 6.4+, written in Python 2.7, using Jinja2 & PyYAML.
+Note: Not quite done yet, checked it in early, so I have some version control.
 
 About
 -----
@@ -56,3 +56,11 @@ Usage
 TODO: Add docs.
 
     ./idacs.py --help
+
+
+TODO
+----
+- Add dynamic palette generation using python-palette.
+- Finish figuring out all the various color settings.
+- Build some generic 'color groups' for use in the colorschemes.
+- Add CLI options.
