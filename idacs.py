@@ -3,7 +3,7 @@
 # @Author: nfarrar
 # @Date:   2014-10-27 18:23:41
 # @Last Modified by:   Nathan Farrar
-# @Last Modified time: 2014-10-28 12:05:49
+# @Last Modified time: 2014-10-28 12:38:32
 
 import cliff
 import logging
@@ -93,9 +93,12 @@ def init_config(cfg_path='_app.yml'):
 
 class ColorScheme:
     def __init__(self, colorscheme_name='default',
-                 template_directory=TEMPLATES_DIRECTORY, template_file=TEMPLATE_FILE,
-                 colorscheme_directory=COLORSCHEMES_DIRECTORY, colorscheme_file=COLORSCHEME_FILE):
-        """ Initialize the colorscheme. """
+        template_directory=TEMPLATES_DIRECTORY, template_file=TEMPLATE_FILE,
+        colorscheme_directory=COLORSCHEMES_DIRECTORY, colorscheme_file=COLORSCHEME_FILE):
+        """ Initialize a new colorscheme object. Initialize the object with the
+        configuration defaults. We can specify these here if we want - or by passing arguments
+        directly into the methods.
+        """
 
         # Initialize our optional arguments.
         self.colorscheme_name = colorscheme_name
@@ -104,17 +107,29 @@ class ColorScheme:
         self.colorscheme_path = os.path.join(colorscheme_directory, colorscheme_file)
 
         # ... and write out some debugging information.
-        logging.debug('Initializing colorscheme \'' + self.colorscheme_name + '\'.')
+        logging.debug('Set colorscheme name \'' + self.colorscheme_name + '\'.')
         logging.debug('Set template_directory to \'' + self.template_directory + '\'.')
         logging.debug('Set template_file to \'' + self.template_file + '\'.')
         logging.debug('Set colorscheme_path to \'' + self.colorscheme_path + '\'.')
 
-        self.load_template()
-        self.load_colorscheme()
-        self.build_config()
+        # self.load_template()
+        # self.load_colorscheme()
+        # self.build_config()
 
-    def load_template(self):
-        """ Load the template file """
+    def load_template(self, template_directory=None, template_file=None):
+        """ Load our template file into our object. We can override the existing values
+        by calling this method and passing in arguments.
+        """
+
+        # Check for arguments and set the values in our object if they exist.
+        if template_directory != None:
+            self.template_directory = template_directory
+            logging.debug('Set template_directory to \'' + self.template_directory + '\'.')
+
+        if template_file != None:
+            self.template_file == template_file
+            logging.debug('Set template_file to \'' + self.template_file + '\'.')
+
         # Initialize the Jinaj2 template environment.
         try:
             self.template_env = Environment(loader=FileSystemLoader(self.template_directory))
@@ -131,8 +146,16 @@ class ColorScheme:
             logging.error('Failed to load template from \'' + self.template_file + '\'.')
             sys.exit(1)
 
-    def load_colorscheme(self):
-        """ Load the colorscheme configuration file """
+    def load_colorscheme(self, colorscheme_path = None):
+        """ Load our colorscheme configuration from a YAML file. We can provide the path
+        to the file as an argument to this function if we want to override the existing
+        configuration.
+        """
+
+        if colorscheme_path != None:
+            self.colorscheme_path = colorscheme_path
+            logging.debug('Set colorscheme_path to \'' + self.colorscheme_path + '\'.')
+
         # Open the colorscheme configuration file for reading.
         try:
             self.colorscheme_file = open(self.colorscheme_path, 'r')
@@ -152,22 +175,58 @@ class ColorScheme:
             cfg_file.close()
             sys.exit(1)
 
-    def build_config(self):
-        """ Generate the CLR content from the colorscheme and template """
+    def build_clr(self):
+        """ Generate the CLR content from the colorscheme and template. """
 
         # Merge the colorscheme configuration and jinja template.
         try:
-            self.clr = self.template.render(self.colorscheme_cfg)
+            self.clr_data = self.template.render(self.colorscheme_cfg)
             logging.debug('Successfully merged colorscheme into template.')
         except Exception, e:
             logging.error('Failed to merge colorscheme into template.', exc_info=True)
             sys.exit(1)
 
+    def write_clr(self, clr_path=None):
+        """ Write the clr configuration to a file. Fails if the file already exists. If no file path
+        is specified, the colorscheme + '.clr' is used.
+        """
+
+        if clr_path == None:
+            clr_path = self.colorscheme_name + '.clr'
+
+        # Create a handle to a new file for writing. If it already exists, throw an error.
+        try:
+            if os.path.exists(clr_path):
+                raise IOError('File \'' + clr_path + '\' already exists.')
+            else:
+                clr_file = open(clr_path, 'w+')
+                logging.debug('Opened file \'' + clr_path + '\' for writing.')
+        except Exception, e:
+            logging.error(e, exc_info=True)
+            sys.exit(1)
+
+        try:
+            clr_file.write(self.clr_data)
+            logging.debug('Wrote clr configuration to \'' + clr_path + '\'.')
+        except Exception, e:
+            logging.error('Failed to write clr configuration to \'' + clr_path + '\'.', exc_info=True)
+            sys.exit(1)
+
 
 if __name__ == '__main__':
+    # Initialize the logging & configuration for our application.
     init_logging()
     init_config()
+
+    # Create a new ColorScheme object using the defaults.
     cs = ColorScheme()
+
+    # Load the files & generate the config.
+    cs.load_template()
+    cs.load_colorscheme()
+    cs.build_clr()
+    cs.write_clr()
+
 
 
 
